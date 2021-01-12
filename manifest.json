@@ -8,7 +8,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://cart.tmall.com/*","https://buy.tmall.com/*","https://cart.taobao.com/*","https://buy.taobao.com/*"],
+      "matches": ["https://*.tmall.com/*","https://*.taobao.com/*"],
       "js": ["maotai.js"],
       "run_at": "document_idle"
     }
