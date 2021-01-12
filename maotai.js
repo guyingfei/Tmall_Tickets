@@ -145,14 +145,34 @@ function selectAllProduct(callback){
 	}
 }
 
+// 检查是否遇到问题
+function checkBlocker(callback){
+	// console.log("checkBlocker");
+	body_text = document.body.innerText;
+	checks = ["休息会呗", "坐下来喝口水", "我们马上回来", "小二正忙", "前方拥堵", "购买的商品已售完"];
+	// checks = ["飞天"];
+	for(var i=0; i<checks.length; i++){
+		if(body_text.indexOf(checks[i]) > -1){
+			console.log("检查到：" + checks[i]);
+			callback && callback();
+			return;
+		}
+	}
+	setTimeout(function(){ checkBlocker(callback);},100);
+}
+
 //主要函数
 function main(){
 	console.log('############################开始抢购茅台############################');
-	
-	var href = window.location.href;
-	if(href.indexOf('cart.tmall.com') > -1 || href.indexOf('cart.taobao.com') > -1){
-		//结算页面
-		checkDocumentState(function(){
+
+	checkDocumentState(function(){
+		var href = window.location.href;
+		checkBlocker(function(){
+			console.log("遇到拥堵或者问题，重新打开购物车")
+			reopenCart();
+		})
+		if(href.indexOf('cart.tmall.com') > -1 || href.indexOf('cart.taobao.com') > -1){
+			//结算页面
 			console.log('结算页面，加载完成');
 			// checkElementState("[title*='飞天53度']", function(){
 				selectAllProduct(function(){
@@ -169,10 +189,8 @@ function main(){
 					// },180000);
 				});
 			// })
-		})
-	}else if(href.indexOf('buy.tmall.com/order') > -1  || href.indexOf('buy.taobao.com/order') > -1){
-		//提交订单页面
-		checkDocumentState(function(){
+		}else if(href.indexOf('buy.tmall.com/order') > -1  || href.indexOf('buy.taobao.com/order') > -1){
+			//提交订单页面
 			console.log('订单页面，加载完成');
 
 			var btn = document.querySelector(".go-btn");
@@ -183,9 +201,8 @@ function main(){
 				console.log('提交订单按钮没找到，重新下单...');
 				reopenCart();
 			}
-		})
-	}
-	
+		}
+	})
 }
 
 
