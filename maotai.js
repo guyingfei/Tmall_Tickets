@@ -32,12 +32,25 @@ function checkElementState(path,callback){
 	}
 }
 
+// 格式化时间
+function time2string(time){
+	var timestr = "";
+	if(time){
+		timestr = time.getFullYear().toString() + "-" +
+			(time.getMonth() + 1).toString() +
+			"-" + time.getDate() + " " + time.getHours() +
+			":" + time.getMinutes() + ":" + time.getSeconds() + "." + time.getMilliseconds();
+	}
+	return timestr;
+}
+
 //结算
 function checkOut(){
 	console.log('结算开始....');
 
 	var btn = document.getElementById('J_Go');
 	if(btn){
+		console.log("时间: "+time2string(new Date()))
 		btn.click();
 	}else{
 		console.log('结算按钮没找到');
@@ -57,6 +70,7 @@ function submitOrder(){
 		var btn = document.querySelector(".go-btn");
 	
 		if(btn){
+			console.log("时间: "+time2string(new Date()))
 			btn.click();
 		}else{
 			console.log('提交订单按钮没找到');
@@ -81,8 +95,9 @@ function enterTimeCheckLoop(callback){
 	var date = new Date();
 	diff = dDate.getTime() - date.getTime();
 	
-	if(diff < 20000 )
-		console.log(diff);
+	// console.log("时间: "+time2string(new Date()))
+	// if(diff < 20000 )
+	// 	console.log(diff);
 	
 	if(diff < - 20000 ){
 		console.log('时间过了！');
