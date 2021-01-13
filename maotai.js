@@ -148,12 +148,24 @@ function selectAllProduct(callback){
 // 检查是否遇到问题
 function checkBlocker(callback){
 	// console.log("checkBlocker");
-	body_text = document.body.innerText;
-	checks = ["休息会呗", "坐下来喝口水", "我们马上回来", "小二正忙", "前方拥堵", "购买的商品已售完"];
-	// checks = ["飞天"];
-	for(var i=0; i<checks.length; i++){
-		if(body_text.indexOf(checks[i]) > -1){
-			console.log("检查到：" + checks[i]);
+	var title = document.title;
+	var body_text = document.body.innerText;
+	var title_checks = ["验证码", "拦截", "错误", "失败"];
+	// var title_checks = ["购物车"];
+	var text_checks = ["休息会呗", "坐下来喝口水", "马上回来", "马上就好", "小二正忙", "拥堵", "客官别急"];
+	// var text_checks = ["飞天"];
+	
+	for(var i=0; i<title_checks.length; i++){
+		if(title.indexOf(title_checks[i]) > -1){
+			console.log("标题检查到：" + title_checks[i]);
+			callback && callback();
+			return;
+		}
+	}
+	
+	for(var i=0; i<text_checks.length; i++){
+		if(body_text.indexOf(text_checks[i]) > -1){
+			console.log("页面检查到：" + text_checks[i]);
 			callback && callback();
 			return;
 		}
