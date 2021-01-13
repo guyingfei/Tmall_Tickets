@@ -187,7 +187,7 @@ function main(){
 		if(hostname.indexOf('cart.tmall.com') > -1 || hostname.indexOf('cart.taobao.com') > -1){
 			//结算页面
 			console.log('结算页面，加载完成');
-			// checkElementState("[title*='飞天53度']", function(){
+			checkElementState("[title*='飞天53度']", function(){
 				selectAllProduct(function(){
 					console.log("开始等待抢购时间到达...");
 					// checkOutAsync();
@@ -201,7 +201,7 @@ function main(){
 					// 	}
 					// },180000);
 				});
-			// })
+			})
 		}else if((hostname.indexOf('buy.tmall.com') > -1 && href.indexOf('buy.tmall.com/order') > -1)
 		  || (hostname.indexOf('buy.taobao.com') > -1 && href.indexOf('buy.taobao.com/order') > -1)){
 			//提交订单页面
