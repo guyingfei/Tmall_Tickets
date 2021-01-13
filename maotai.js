@@ -167,11 +167,12 @@ function main(){
 
 	checkDocumentState(function(){
 		var href = window.location.href;
+		var hostname = window.location.host;
 		checkBlocker(function(){
 			console.log("遇到拥堵或者问题，重新打开购物车")
 			reopenCart();
 		})
-		if(href.indexOf('cart.tmall.com') > -1 || href.indexOf('cart.taobao.com') > -1){
+		if(hostname.indexOf('cart.tmall.com') > -1 || hostname.indexOf('cart.taobao.com') > -1){
 			//结算页面
 			console.log('结算页面，加载完成');
 			// checkElementState("[title*='飞天53度']", function(){
@@ -189,7 +190,8 @@ function main(){
 					// },180000);
 				});
 			// })
-		}else if(href.indexOf('buy.tmall.com/order') > -1  || href.indexOf('buy.taobao.com/order') > -1){
+		}else if((hostname.indexOf('buy.tmall.com') > -1 && href.indexOf('buy.tmall.com/order') > -1)
+		  || (hostname.indexOf('buy.taobao.com') > -1 && href.indexOf('buy.taobao.com/order') > -1)){
 			//提交订单页面
 			console.log('订单页面，加载完成');
 
